@@ -7,7 +7,7 @@ from Crypto.Util.Padding import pad, unpad
 
 def get_aes_key_from_string(s: str, key_size=16) -> bytes:
     assert key_size in (16, 24, 32), "Invalid key size"
-    hash_bytes = hashlib.sha256(s.encode()).digest()  # 32 bytes
+    hash_bytes = hashlib.sha256(s.encode()).digest()
     return hash_bytes[:key_size]
 
 def encrypt(plainbytes: bytes, key: bytes) -> bytes:
@@ -20,6 +20,51 @@ def decrypt(ciphertext: bytes, key: bytes) -> bytes:
     decrypted = unpad(cipher.decrypt(ciphertext), AES.block_size)
     return decrypted
 
+def encode_file(full_path: str, entered_key: str):
+    with open(full_path, "rb") as input_file:
+        file_bytes = input_file.read()
+
+    encoded_bytes = encrypt(file_bytes, get_aes_key_from_string(entered_key))
+
+    with open(full_path+".encoded", "wb") as encoded_file:
+        encoded_file.write("<<<EncodedWithTrampoline>>>".encode() + encoded_bytes + "<<<EncodedWithTrampoline>>>".encode())
+
+def decode_file(encoded_bytes: bytes, entered_key: str):
+    encoded_bytes = encoded_bytes.removeprefix(b"<<<EncodedWithTrampoline>>>")
+    encoded_bytes = encoded_bytes.removesuffix(b"<<<EncodedWithTrampoline>>>")
+
+    decoded_bytes = decrypt(encoded_bytes, get_aes_key_from_string(entered_key))
+
+    directory = os.path.dirname(full_path)
+    file_name = os.path.basename(full_path)
+
+    file_name = "decoded_" + file_name.removesuffix(".encoded")
+
+    new_path = os.path.join(directory, file_name)
+
+    with open(new_path, "wb") as decoded_file:
+        decoded_file.write(decoded_bytes)
+
+def get_list_of_encoded_files(directory_path):
+
+    list_of_files = []
+    for entry in os.listdir(directory_path):
+        full_path = os.path.join(directory_path, entry)
+        if os.path.isfile(full_path):
+            if check_validity(full_path):
+                list_of_files.append(full_path)
+
+    return list_of_files
+
+def check_validity(full_path):
+
+    with open(full_path, "rb") as encoded_file:
+        encoded_bytes = encoded_file.read()
+
+    if encoded_bytes.startswith(b"<<<EncodedWithTrampoline>>>") and encoded_bytes.endswith(b"<<<EncodedWithTrampoline>>>"):
+        return True
+    
+    return False
 
 if __name__ == "__main__":
     print("Welcome to file encoder :)")
@@ -34,58 +79,31 @@ if __name__ == "__main__":
         )
 
         if inp == "1":
-            inp2 = input("Enter the file full path: ")
-            inp3 = input("Enter a key to encrypt the file with: ")
+            full_path = input("Enter the file full path: ")
+            entered_key = input("Enter a key to encrypt the file with: ")
 
-            with open(inp2, "rb") as input_file:
-                file_bytes = input_file.read()
-
-            encoded_bytes = encrypt(file_bytes, get_aes_key_from_string(inp3))
-
-            with open(inp2+".encoded", "wb") as encoded_file:
-                encoded_file.write("<<<EncodedWithTrampoline>>>".encode() + encoded_bytes + "<<<EncodedWithTrampoline>>>".encode())
+            encode_file(full_path, entered_key)
 
             print("Encryption Done")
         
         elif inp == "2":
-            inp2 = input("Enter the full path of the directory: ")
+            directory_path = input("Enter the full path of the directory: ")
 
-            there_was = False
+            list_of_files = get_list_of_encoded_files()
 
-            for entry in os.listdir(inp2):
-                full_path = os.path.join(inp2, entry)
-                if os.path.isfile(full_path):
-                    with open(full_path, "rb") as a_file:
-                        if a_file.read().startswith(b"<<<EncodedWithTrampoline>>>"):
-                            print(full_path, "is encoded")
-                            there_was = True
+            for f in list_of_files:
+                print(f, "is encoded")
             
-            if not there_was:
+            if not list_of_files:
                 print("No encoded files are found in this directory")
             
         elif inp == "3":
-            inp2 = input("Enter the full path of the encoded file: ")
-            inp3 = input("Enter the key you used to encode: ")
+            full_path = input("Enter the full path of the encoded file: ")
+            entered_key = input("Enter the key you used to encode: ")
 
-            encoded_file = open(inp2, "rb")
-
-            encoded_bytes = encoded_file.read()
-
-            if encoded_bytes.startswith(b"<<<EncodedWithTrampoline>>>") and encoded_bytes.endswith(b"<<<EncodedWithTrampoline>>>"):
-                encoded_bytes = encoded_bytes.removeprefix(b"<<<EncodedWithTrampoline>>>")
-                encoded_bytes = encoded_bytes.removesuffix(b"<<<EncodedWithTrampoline>>>")
-
-                decoded_bytes = decrypt(encoded_bytes, get_aes_key_from_string(inp3))
-
-                directory = os.path.dirname(inp2)
-                file_name = os.path.basename(inp2)
-
-                file_name = "decoded_" + file_name.removesuffix(".encoded")
-
-                new_path = os.path.join(directory, file_name)
-
-                with open(new_path, "wb") as decoded_file:
-                    decoded_file.write(decoded_bytes)
+            if check_validity(full_path):
+                
+                decode_file(full_path, entered_key)
                 
                 print("Decryption Done")
         
