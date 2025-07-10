@@ -29,7 +29,10 @@ def encode_file(full_path: str, entered_key: str):
     with open(full_path+".encoded", "wb") as encoded_file:
         encoded_file.write("<<<EncodedWithTrampoline>>>".encode() + encoded_bytes + "<<<EncodedWithTrampoline>>>".encode())
 
-def decode_file(encoded_bytes: bytes, entered_key: str):
+def decode_file(full_path: str, entered_key: str):
+    with open(full_path, "rb") as encoded_file:
+        encoded_bytes = encoded_file.read()
+
     encoded_bytes = encoded_bytes.removeprefix(b"<<<EncodedWithTrampoline>>>")
     encoded_bytes = encoded_bytes.removesuffix(b"<<<EncodedWithTrampoline>>>")
 
@@ -89,7 +92,7 @@ if __name__ == "__main__":
         elif inp == "2":
             directory_path = input("Enter the full path of the directory: ")
 
-            list_of_files = get_list_of_encoded_files()
+            list_of_files = get_list_of_encoded_files(directory_path)
 
             for f in list_of_files:
                 print(f, "is encoded")
@@ -102,7 +105,7 @@ if __name__ == "__main__":
             entered_key = input("Enter the key you used to encode: ")
 
             if check_validity(full_path):
-                
+
                 decode_file(full_path, entered_key)
                 
                 print("Decryption Done")
