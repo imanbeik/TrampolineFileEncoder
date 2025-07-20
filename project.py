@@ -91,9 +91,10 @@ def main():
             full_path = input("Enter the file full path: ")
             entered_key = input("Enter a key to encrypt the file with: ")
 
-            encode_file(full_path, entered_key)
+            encryption_path = encode_file(full_path, entered_key)
 
             print("Encryption Done")
+            print("Encryption file:", encryption_path)
         
         elif inp == "2":
             directory_path = input("Enter the full path of the directory: ")
@@ -112,9 +113,10 @@ def main():
 
             if check_validity(full_path):
 
-                decode_file(full_path, entered_key)
+                decryption_path = decode_file(full_path, entered_key)
                 
                 print("Decryption Done")
+                print("Decryption file:", decryption_path)
         
         elif inp == "0":
             print("Exiting the program.")
