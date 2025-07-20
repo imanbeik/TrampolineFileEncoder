@@ -94,12 +94,14 @@ def main():
             encryption_path = encode_file(full_path, entered_key)
 
             print("Encryption Done")
-            print("Encryption file:", encryption_path)
+            print("Encrypted file:", encryption_path)
         
         elif inp == "2":
             directory_path = input("Enter the full path of the directory: ")
 
             list_of_files = get_list_of_encoded_files(directory_path)
+
+            print()
 
             for f in list_of_files:
                 print(f, "is encoded")
@@ -116,7 +118,7 @@ def main():
                 decryption_path = decode_file(full_path, entered_key)
                 
                 print("Decryption Done")
-                print("Decryption file:", decryption_path)
+                print("Decrypted file:", decryption_path)
         
         elif inp == "0":
             print("Exiting the program.")
