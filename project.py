@@ -26,8 +26,11 @@ def encode_file(full_path: str, entered_key: str):
 
     encoded_bytes = encrypt(file_bytes, get_aes_key_from_string(entered_key))
 
-    with open(full_path+".encoded", "wb") as encoded_file:
+    encoded_file_path = full_path+".encoded"
+    with open(encoded_file_path, "wb") as encoded_file:
         encoded_file.write("<<<EncodedWithTrampoline>>>".encode() + encoded_bytes + "<<<EncodedWithTrampoline>>>".encode())
+    
+    return encoded_file_path
 
 def decode_file(full_path: str, entered_key: str):
     with open(full_path, "rb") as encoded_file:
@@ -47,6 +50,8 @@ def decode_file(full_path: str, entered_key: str):
 
     with open(new_path, "wb") as decoded_file:
         decoded_file.write(decoded_bytes)
+    
+    return new_path
 
 def get_list_of_encoded_files(directory_path):
 
@@ -69,7 +74,8 @@ def check_validity(full_path):
     
     return False
 
-if __name__ == "__main__":
+
+def main():
     print("Welcome to file encoder :)")
 
     while True:
@@ -118,6 +124,10 @@ if __name__ == "__main__":
             print("Invalid input")
         
         print("\n")
+
+
+if __name__ == "__main__":
+    main()
 
 
 
