@@ -9,13 +9,13 @@ What is the use of this program?
 
 
 Encoding data:
-    When your run the project there are 4 options to choose,
+    When you run the project there are 4 options to choose,
         1: Encode a file
         2: List of encoded files in a directory
         3: Decode a file
         0: Exit
     For encoding a file you must enter 1
-    after doing that you should provide a valid full pth to your file in your computer and a key of your choice, then if the path is valid you will get a prompt with a new path to your new file which is encoded form of your original file.
+    after doing that you should provide a valid full path to your file in your computer and a key of your choice, then if the path is valid you will get a prompt with a new path to your new file which is encoded form of your original file.
 
 
 Decoding data:
@@ -27,3 +27,8 @@ Listing encoded files:
     If you don't remember which files have been encoded, no problem, you can use the program itself to show you list of encoded files.
     After running the program you should enter 2, then you should provide a valid path to a directory then wait a second for it to search in the directory for the encoded files. it doesn't matter if you chaned the encoded file's name or not, it will show you the list of file unless you didn't provided a valid path.
 
+Exiting:
+    Are you done with the program?
+    You should just enter 0 then the program will terminate itself.
+
+If you saw anything wrong with the program let me know in the issue section.
