@@ -91,34 +91,45 @@ def main():
             full_path = input("Enter the file full path: ")
             entered_key = input("Enter a key to encrypt the file with: ")
 
-            encryption_path = encode_file(full_path, entered_key)
-
-            print("Encryption Done")
-            print("Encrypted file:", encryption_path)
+            try:
+                encryption_path = encode_file(full_path, entered_key)
+                print("Encryption Done")
+                print("Encrypted file:", encryption_path)
+            except FileNotFoundError as ex:
+                print("\nError: The path you entered wasn't a valid path to a file!")
+                
         
         elif inp == "2":
             directory_path = input("Enter the full path of the directory: ")
 
-            list_of_files = get_list_of_encoded_files(directory_path)
+            try:
+                list_of_files = get_list_of_encoded_files(directory_path)
 
-            print()
+                print()
 
-            for f in list_of_files:
-                print(f, "is encoded")
-            
-            if not list_of_files:
-                print("No encoded files are found in this directory")
+                for f in list_of_files:
+                    print(f, "is encoded")
+                
+                if not list_of_files:
+                    print("No encoded files are found in this directory")
+            except FileNotFoundError as ex:
+                print("\nErro: Not a valid path")
             
         elif inp == "3":
             full_path = input("Enter the full path of the encoded file: ")
             entered_key = input("Enter the key you used to encode: ")
 
-            if check_validity(full_path):
+            try:
+                if check_validity(full_path):
 
-                decryption_path = decode_file(full_path, entered_key)
-                
-                print("Decryption Done")
-                print("Decrypted file:", decryption_path)
+                    decryption_path = decode_file(full_path, entered_key)
+                    
+                    print("Decryption Done")
+                    print("Decrypted file:", decryption_path)
+                else:
+                    print("Not a valid encoded file!")
+            except FileNotFoundError as ex:
+                print("\nErro: Not a valid path to a file")
         
         elif inp == "0":
             print("Exiting the program.")
