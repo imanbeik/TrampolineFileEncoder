@@ -3,12 +3,12 @@
 ## Description:
 
 
-### What is the use of this program?
+#### What is the use of this program?
     Did you ever felt the need to protect your data from others?, if you are working with sensitive data and you like to somehow make your file unusable to other people you can encode your data using this program, it uses encoding techniques that make your data unreadable if you don't have the key to decode it.
     So you encode your file with a password key. you remember the key and that's it, only you can access that data.
 
 
-Encoding data:
+#### Encoding data:
     When you run the project there are 4 options to choose,
         1: Encode a file
         2: List of encoded files in a directory
