@@ -27,7 +27,7 @@ If you don't remember which files have been encoded, no problem, you can use the
 After running the program you should enter 2, then you should provide a valid path to a directory then wait a second for it to search in the directory for the encoded files. it doesn't matter if you chaned the encoded file's name or not, it will show you the list of file unless you didn't provided a valid path.
 
 #### Importance of file names:
-Feel free to change the encoded file's name since it has nothing to do with encoding, decoding or even identifying the encoded format. The purpose of the name is just to be appearant to user that which files are encoded and which files are not.
+Feel free to change the encoded or decoded file's name since it has nothing to do with encoding, decoding or even identifying the encoded format. The purpose of the name is just to be appearant to user that which files are encoded and which files are not.
 
 #### Exiting:
 Are you done with the program?
