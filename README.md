@@ -15,8 +15,7 @@ When you run the project there are 4 options to choose,
     3: Decode a file
     0: Exit
 For encoding a file you must enter 1
-after doing that you should provide a valid full path to your file in your computer and a key of your choice, then if the path is valid you will get a prompt with a new path to your new file which is encoded form of your original file.
-
+after doing that you should provide a valid full path to your file in your computer and a key of your choice, then if the path is valid you will get a reply with a new path to your new file which is encoded form of your original file.
 
 #### Decoding data:
 Assuming you have a encoded file which is the ouput of this program, you can now decode it if you have the key,
@@ -27,12 +26,15 @@ After running the program you should enter 3 to decode your file, then the progr
 If you don't remember which files have been encoded, no problem, you can use the program itself to show you list of encoded files.
 After running the program you should enter 2, then you should provide a valid path to a directory then wait a second for it to search in the directory for the encoded files. it doesn't matter if you chaned the encoded file's name or not, it will show you the list of file unless you didn't provided a valid path.
 
+#### Importance of file names:
+Feel free to change the encoded file's name since it has nothing to do with encoding, decoding or even identifying the encoded format. The purpose of the name is just to be appearant to user that which files are encoded and which files are not.
+
 #### Exiting:
 Are you done with the program?
 You should just enter 0 then the program will terminate itself.
 
 
-#### Testing
-I wrote some tests for the program with pytest format, you should run test_project.py using pytest, if you made any change to the codes make sure tests show no error in the new version.
+#### Testing:
+I wrote some tests for the program in pytest format, you should run test_project.py using pytest, if you made any change to the codes make sure tests show no error in the new version.
 
 If you saw any bug in the program let me know in the issue section.
