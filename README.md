@@ -32,4 +32,7 @@ Are you done with the program?
 You should just enter 0 then the program will terminate itself.
 
 
-If you saw anything wrong with the program let me know in the issue section.
+#### Testing
+I wrote some tests for the program with pytest format, you should run test_project.py using pytest, if you made any change to the codes make sure tests show no error in the new version.
+
+If you saw any bug in the program let me know in the issue section.
