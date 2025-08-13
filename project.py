@@ -260,7 +260,8 @@ def main():
             )
 
             if file_paths:
-                file_joiner(file_paths)
+                new_path, _ = file_joiner(file_paths)
+                print("Your original file was rejoined to this path: ", new_path)
             
         elif inp == "0":
             print("Exiting the program.")
