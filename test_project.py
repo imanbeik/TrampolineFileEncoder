@@ -1,4 +1,4 @@
-from project import get_aes_key_from_string, encrypt, decrypt, encode_file, decode_file
+from project import get_aes_key_from_string, encrypt, decrypt, encode_file, decode_file, file_splitter, file_joiner
 import os
 
 def test_get_aes_key_from_string():
@@ -17,7 +17,7 @@ def test_decrypt():
     assert decrypt(bytes.fromhex("10df487eb7ccd036ecb4f2aea22706ae"), get_aes_key_from_string("awesome")).decode() == "amazing"
 
 
-def test_process():
+def test_encode_decode_process():
 
     before_content = "Hey, how are you doing here."
     chosen_key = "smartpassword"
@@ -34,3 +34,17 @@ def test_process():
         after_content = decoded_file.read()
 
     assert before_content == after_content
+
+def test_split_join_process():
+
+    a_file = b"".join(os.urandom(1) for x in range(100))
+    test_file_path = os.path.join(os.getcwd(), "splittest.bin")
+    with open(test_file_path, "wb") as f:
+        f.write(a_file)
+    
+    file_paths = file_splitter(test_file_path, 6)
+    print(file_paths)
+
+    new_path, content = file_joiner(file_paths)
+
+    assert content == a_file
